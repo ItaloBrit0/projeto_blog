@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+
+{% block page_title%}
+
+    <h2>Postagens do blog</h2>
+
+{% endblock page_title%}
+
+
+{% block page_content %}
+    {% block posts%}
+        {%for post in posts%}
+            <h3>
+                <a href="{% url 'blog_detalhe' post.pk%}">{{post.titulo}}</a> 
+                <small>
+                    {{post.criado_em.date}} | Categorias:
+                    {% for categoria in post.categorias.all %}
+                        <a href="{%url 'blog_categoria' categoria.nome %} ">
+                            {{categoria.nome}}
+                            
+                        </a>
+                    {% endfor %}
+                </small>
+                <p>{{post.corpo | slice:'400' }}....</p>
+            </h3>
+        {% endfor %}
+    {% endblock posts %}
+{% endblock page_content%}
+
